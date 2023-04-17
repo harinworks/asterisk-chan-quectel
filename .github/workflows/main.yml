@@ -23,7 +23,6 @@ jobs:
           ARCH: ${{ matrix.arch }}
           CONTAINER: openwrtorg/sdk
           FEED_DIR: $GITHUB_WORKSPACE/openwrt/urlmakefile/current/Ast18/
-          PACKAGES: asterisk-chan-quectel
 
       - name: Store packages
         uses: actions/upload-artifact@v2
