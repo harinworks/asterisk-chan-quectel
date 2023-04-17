@@ -23,7 +23,7 @@ jobs:
         env:
           ARCH: ${{ matrix.arch }}
           CONTAINER: openwrtorg/sdk:openwrt-22.03
-          FEED_DIR: $GITHUB_WORKSPACE/openwrt/urlmakefile/current/Ast18/
+          FEED_DIR: $GITHUB_WORKSPACE/openwrt/urlmakefile/current/Ast19/
 
       - name: Store packages
         uses: actions/upload-artifact@v2
