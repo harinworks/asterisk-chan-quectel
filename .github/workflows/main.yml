@@ -10,7 +10,6 @@ jobs:
     strategy:
       matrix:
         arch:
-          - x86_64
           - mips_24kc
 
     steps:
@@ -23,6 +22,7 @@ jobs:
         env:
           ARCH: ${{ matrix.arch }}
           FEED_DIR: $GITHUB_WORKSPACE/openwrt/urlmakefile/current/Ast18/
+          PACKAGES: asterisk-chan-quectel
 
       - name: Store packages
         uses: actions/upload-artifact@v2
