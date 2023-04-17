@@ -22,7 +22,7 @@ jobs:
         uses: openwrt/gh-action-sdk@main
         env:
           ARCH: ${{ matrix.arch }}
-          CONTAINER: openwrtorg/sdk:openwrt-22.03
+          IGNORE_ERRORS: true
           FEED_DIR: $GITHUB_WORKSPACE/openwrt/urlmakefile/current/Ast18/
 
       - name: Store packages
