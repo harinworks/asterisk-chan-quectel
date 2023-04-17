@@ -21,7 +21,7 @@ jobs:
         uses: openwrt/gh-action-sdk@main
         env:
           ARCH: ${{ matrix.arch }}
-          CONTAINER: "openwrtorg/sdk:x86_64-openwrt-22.03"
+          CONTAINER: openwrtorg/sdk
           FEED_DIR: $GITHUB_WORKSPACE/openwrt/urlmakefile/current/Ast18/
           PACKAGES: asterisk-chan-quectel
 
