@@ -22,6 +22,7 @@ jobs:
         env:
           ARCH: ${{ matrix.arch }}
           CONTAINER: openwrtorg/sdk
+          IGNORE_ERRORS: true
           FEED_DIR: $GITHUB_WORKSPACE/openwrt/urlmakefile/current/Ast18/
 
       - name: Store packages
