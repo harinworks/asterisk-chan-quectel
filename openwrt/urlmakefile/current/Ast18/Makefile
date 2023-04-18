@@ -78,4 +78,4 @@ define Package/$(PKG_NAME)/install
 endef
 
 
-$(eval $(call BuildPackage,$(PKG_NAME)))
+$(eval $(call BuildPackage,asterisk-chan-quectel-master))
