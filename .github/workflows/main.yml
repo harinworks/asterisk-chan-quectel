@@ -30,7 +30,6 @@ jobs:
           sudo chown -R tstusr:tstusr /home/tstusr/.ssh
           sudo chmod 700 /home/tstusr/.ssh
           sudo chmod 600 /home/tstusr/.ssh/authorized_keys
-          sudo ssh -o PreferredAuthentications=publickey
           echo 'until [ -f continue.txt ]; do sleep 5; done' > poll.sh
           echo 'exit' >> poll.sh
           echo $(pwd)
