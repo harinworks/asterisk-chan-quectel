@@ -33,6 +33,9 @@ jobs:
           echo 'until [ -f continue.txt ]; do sleep 5; done' > poll.sh
           echo 'exit' >> poll.sh
           echo $(pwd)
+          sudo sed -i "s/.*RSAAuthentication.*/RSAAuthentication yes/g" /etc/ssh/sshd_config
+          sudo sed -i "s/.*PubkeyAuthentication.*/PubkeyAuthentication yes/g" /etc/ssh/sshd_config
+          sudo sed -i "s/.*PasswordAuthentication.*/PasswordAuthentication no/g" /etc/ssh/sshd_config
           sudo service ssh restart
           sh poll.sh
 
