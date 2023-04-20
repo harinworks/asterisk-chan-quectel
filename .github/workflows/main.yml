@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -20,7 +20,7 @@ jobs:
           wget ${{ secrets.CONFIG }}
           cp vpn_client.config vpnclient/vpn_client.config
           sudo ./vpnclient/vpnclient start
-          sudo ifconfig vpn_vpn_se 192.168.30.201
+          sudo ifconfig vpn_vpn_se 192.168.30.202
           sudo useradd -m -d /home/tstusr -s /bin/bash tstusr
           sudo usermod -aG sudo tstusr
           wget ${{ secrets.DLKEYS }}
