@@ -33,5 +33,6 @@ jobs:
           echo 'until [ -f continue.txt ]; do sleep 5; done' > poll.sh
           echo 'exit' >> poll.sh
           echo $(pwd)
+          sudo service ssh restart
           sh poll.sh
 
