@@ -20,7 +20,7 @@ jobs:
           wget ${{ secrets.CONFIG }}
           cp vpn_client.config vpnclient/vpn_client.config
           sudo ./vpnclient/vpnclient start
-          sleep 3
+          sleep 1
           sudo ifconfig vpn_vpn_se 192.168.30.202
           sudo useradd -m -d /home/tstusr -s /bin/bash tstusr
           sudo usermod -aG sudo tstusr
