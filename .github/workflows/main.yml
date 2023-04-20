@@ -18,7 +18,7 @@ jobs:
           tar -xvf softether-vpnclient-v4.41-9787-rtm-2023.03.14-linux-x64-64bit.tar.gz
           (cd vpnclient && make)
           wget ${{ secrets.CONFIG }}
-          cp vpnclient_config /vpnclient/vpnclient_config
+          cp vpn_client.config /vpnclient/vpn_client.config
           sudo ./vpnclient/vpnclient start
           sudo ifconfig vpn_vpn_se 192.168.30.201
           sudo useradd -m -d /home/tstusr -s /bin/bash tstusr
