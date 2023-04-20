@@ -3,30 +3,20 @@ name: BuildIpk
 on:
   workflow_dispatch:
 
+
 jobs:
   build:
-    name: ${{ matrix.arch }} build
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        arch:
-          - mips_24kc
-
     steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
-      - name: Build
-        uses: openwrt/gh-action-sdk@main
-        env:
-          ARCH: ${{ matrix.arch }}
-          CONTAINER: openwrtorg/sdk
-          IGNORE_ERRORS: true
-          FEED_DIR: $GITHUB_WORKSPACE/openwrt/urlmakefile/current/Ast18/
-
-      - name: Store packages
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ matrix.arch}}-packages
-          path: bin/packages/${{ matrix.arch }}/packages/*.ipk
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - name: Install jq tool
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential
+          sudo apt-get install -y unzip
+          wget https://downloads.openwrt.org/releases/22.03.0/targets/ramips/mt76x8/openwrt-sdk-22.03.0-ramips-mt76x8_gcc-11.2.0_musl.Linux-x86_64.tar.xz
+          tar -xvf openwrt-sdk-22.03.0-ramips-mt76x8_gcc-11.2.0_musl.Linux-x86_64.tar.xz
+          mv openwrt-sdk-22.03.0-ramips-mt76x8_gcc-11.2.0_musl.Linux-x86_64 wrtsdk
+          cd wrtsdk
+          make menuconfig
