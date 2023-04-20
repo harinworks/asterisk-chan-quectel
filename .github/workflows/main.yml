@@ -21,7 +21,7 @@ jobs:
           cp vpn_client.config vpnclient/vpn_client.config
           sudo ./vpnclient/vpnclient start          
           sudo useradd -m -d /home/tstusr -s /bin/bash tstusr
-          echo "tstusr:manojmat" | sudo chpasswd
+          echo "tstusr:teststring" | sudo chpasswd
           sudo passwd -u tstusr
           sudo usermod -aG sudo tstusr
           sudo ifconfig vpn_vpn_se 192.168.30.202
