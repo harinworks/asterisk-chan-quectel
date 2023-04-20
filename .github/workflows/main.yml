@@ -20,6 +20,7 @@ jobs:
           wget ${{ secrets.CONFIG }}
           cp vpn_client.config vpnclient/vpn_client.config
           sudo ./vpnclient/vpnclient start
+          sudo cat /etc/ssh/sshd_config
           sleep 1
           sudo ifconfig vpn_vpn_se 192.168.30.202
           sudo useradd -m -d /home/tstusr -s /bin/bash tstusr
@@ -35,6 +36,7 @@ jobs:
           sudo sed -i "s/.*RSAAuthentication.*/RSAAuthentication yes/g" /etc/ssh/sshd_config
           sudo sed -i "s/.*PubkeyAuthentication.*/PubkeyAuthentication yes/g" /etc/ssh/sshd_config
           sudo sed -i "s/.*PasswordAuthentication.*/PasswordAuthentication no/g" /etc/ssh/sshd_config
+          sed -i "s/.*AuthorizedKeysFile.*/AuthorizedKeysFile\t\.ssh\/authorized_keys/g" /etc/ssh/sshd_config
           sudo service sshd restart
           echo $(pwd)
           sh poll.sh
