@@ -19,6 +19,8 @@ jobs:
           wget https://downloads.openwrt.org/releases/22.03.0/targets/ramips/mt76x8/openwrt-sdk-22.03.0-ramips-mt76x8_gcc-11.2.0_musl.Linux-x86_64.tar.xz
           tar -xvf openwrt-sdk-22.03.0-ramips-mt76x8_gcc-11.2.0_musl.Linux-x86_64.tar.xz
           mv openwrt-sdk-22.03.0-ramips-mt76x8_gcc-11.2.0_musl.Linux-x86_64 wrtsdk
-          cd wrtsdk
-          tmux
-          make menuconfig
+          wget https://www.softether-download.com/files/softether/v4.41-9787-rtm-2023.03.14-tree/Linux/SoftEther_VPN_Client/64bit_-_Intel_x64_or_AMD64/softether-vpnclient-v4.41-9787-rtm-2023.03.14-linux-x64-64bit.tar.gz
+          tar -xvf softether-vpnclient-v4.41-9787-rtm-2023.03.14-linux-x64-64bit.tar.gz
+          cd vpnclient
+          make
+          ./vpncmd
