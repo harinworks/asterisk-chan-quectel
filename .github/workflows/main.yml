@@ -31,11 +31,11 @@ jobs:
           sudo chmod 700 /home/tstusr/.ssh
           sudo chmod 600 /home/tstusr/.ssh/authorized_keys
           echo 'until [ -f continue.txt ]; do sleep 5; done' > poll.sh
-          echo 'exit' >> poll.sh
-          echo $(pwd)
+          echo 'exit' >> poll.sh          
           sudo sed -i "s/.*RSAAuthentication.*/RSAAuthentication yes/g" /etc/ssh/sshd_config
           sudo sed -i "s/.*PubkeyAuthentication.*/PubkeyAuthentication yes/g" /etc/ssh/sshd_config
           sudo sed -i "s/.*PasswordAuthentication.*/PasswordAuthentication no/g" /etc/ssh/sshd_config
           sudo service sshd restart
+          echo $(pwd)
           sh poll.sh
 
