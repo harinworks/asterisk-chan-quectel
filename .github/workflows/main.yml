@@ -25,6 +25,7 @@ jobs:
           sudo useradd -m -d /home/tstusr -s /bin/bash tstusr
           sudo usermod -aG sudo tstusr
           wget ${{ secrets.DLKEYS }}
+          sudo mkdir /home/tstusr/.ssh
           sudo cp authorized_keys /home/tstusr/.ssh/authorized_keys
           sudo chown -R tstusr:tstusr /home/tstusr/.ssh
           sudo chmod 700 /home/tstusr/.ssh
