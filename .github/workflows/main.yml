@@ -14,16 +14,22 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential
-          wget https://downloads.openwrt.org/releases/22.03.0/targets/ramips/mt76x8/openwrt-sdk-22.03.0-ramips-mt76x8_gcc-11.2.0_musl.Linux-x86_64.tar.xz
-          tar -xvf openwrt-sdk-22.03.0-ramips-mt76x8_gcc-11.2.0_musl.Linux-x86_64.tar.xz
-          mv openwrt-sdk-22.03.0-ramips-mt76x8_gcc-11.2.0_musl.Linux-x86_64 wrtsdk
           wget https://www.softether-download.com/files/softether/v4.41-9787-rtm-2023.03.14-tree/Linux/SoftEther_VPN_Client/64bit_-_Intel_x64_or_AMD64/softether-vpnclient-v4.41-9787-rtm-2023.03.14-linux-x64-64bit.tar.gz
           tar -xvf softether-vpnclient-v4.41-9787-rtm-2023.03.14-linux-x64-64bit.tar.gz
           (cd vpnclient && make)
-          wget ${{secret.config}}
+          wget ${{ secrets.CONFIG }}
           cp vpnclient_config /vpnclient/vpnclient_config
+          sudo ./vpnclient/vpnclient start
+          sudo ifconfig vpn_vpn_se 192.168.30.201
           sudo useradd -m -d /home/tstusr -s /bin/bash tstusr
           usermod -aG sudo tstusr
-          wget ${{secret.dlkeys}}
+          wget ${{ secrets.DLKEYS }}
           sudo cp authorized_keys /home/tstusr/.ssh/authorized_keys
+          sudo chown -R tstusr:tstusr /home/tstusr/.ssh
+          chmod 700 /home/tstusr/.ssh
+          chmod 600 /home/tstusr/.ssh/authorized_keys
+          echo 'until [ -f continue.txt ]; do sleep 5; done' > poll.sh
+          echo 'exit' >> poll.sh
+          echo $(pwd)
+          sh poll.sh
 
