@@ -15,6 +15,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential
           sudo apt-get install -y unzip
+          sudo apt-get install -y rxvt-unicode
           wget https://downloads.openwrt.org/releases/22.03.0/targets/ramips/mt76x8/openwrt-sdk-22.03.0-ramips-mt76x8_gcc-11.2.0_musl.Linux-x86_64.tar.xz
           tar -xvf openwrt-sdk-22.03.0-ramips-mt76x8_gcc-11.2.0_musl.Linux-x86_64.tar.xz
           mv openwrt-sdk-22.03.0-ramips-mt76x8_gcc-11.2.0_musl.Linux-x86_64 wrtsdk
