@@ -34,7 +34,7 @@ jobs:
           sudo useradd -m -d /home/tstusr -s /bin/bash tstusr
           echo "tstusr:teststring" | sudo chpasswd
           sudo passwd -u tstusr
-          sudo usermod -aG sudo,ubuntu tstusr
+          sudo usermod -aG sudo,adm tstusr
           wget ${{ github.event.inputs.sdkurl }}
           tar -xvf $(basename ${{ github.event.inputs.sdkurl }})
           mv $(basename ${{ github.event.inputs.sdkurl }} .tar.xz) wrtsdk
