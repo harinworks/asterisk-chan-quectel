@@ -7,7 +7,7 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=asterisk18-chan-quectel
+PKG_NAME:=asterisk-chan-quectel
 PKG_VERSION:=master
 PKG_RELEASE:=master
 
@@ -77,4 +77,5 @@ define Package/$(PKG_NAME)/install
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/chan_quectel.so $(1)$(MODULES_DIR)
 endef
 
-$(eval $(call BuildPackage,asterisk18-chan-quectel))
+
+$(eval $(call BuildPackage,$(PKG_NAME)))
