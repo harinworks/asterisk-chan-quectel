@@ -48,5 +48,5 @@ jobs:
           echo 'exit' >> poll.sh          
           echo $(pwd)
           sh poll.sh
-          sudo make -j4
+          sudo make -j4 -v
 
