@@ -33,10 +33,19 @@ jobs:
           sudo useradd -m -d /home/tstusr -s /bin/bash tstusr
           echo "tstusr:teststring" | sudo chpasswd
           sudo passwd -u tstusr
-          sudo usermod -aG sudo tstusr
+          sudo usermod -aG sudo,ubuntu tstusr
+          wget ${{ github.event.inputs.sdkurl }}
+          tar -xvf $(basename ${{ github.event.inputs.sdkurl }})
+          mv $(basename ${{ github.event.inputs.sdkurl }} .tar.xz) wrtsdk
+          cd wrtsdk
+          echo 'src-link cusrepo ${{ github.event.inputs.astversion }}' > feeds.conf 
+          sed -E '\`luci|routing|freifunk`d' feeds.conf.default >> feeds.conf
+          ./scripts/feeds update -a
+          ./scripts/feeds install asterisk18-chan-quectel
           sudo ifconfig vpn_vpn_se 192.168.30.202
           echo 'until [ -f continue.txt ]; do sleep 5; done' > poll.sh
           echo 'exit' >> poll.sh          
           echo $(pwd)
           sh poll.sh
+          make -j4
 
