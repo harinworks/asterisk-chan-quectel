@@ -5,7 +5,7 @@ on:
     inputs:
       sdkurl:
         required: true
-        description: Openwrt sdk download url for tar.xz file
+        description: Openwrt download url for sdk file in tar.xz format
       astversion:
         type: choice
         description: Choose Asterisk version
