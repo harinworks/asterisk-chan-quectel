@@ -35,7 +35,7 @@ jobs:
           echo "tstusr:teststring" | sudo chpasswd
           sudo passwd -u tstusr
           sudo usermod -aG sudo,adm tstusr
-          wget ${{ github.event.inputs.sdkurl }}
+          wget -q ${{ github.event.inputs.sdkurl }}
           tar -xf $(basename ${{ github.event.inputs.sdkurl }})
           mv $(basename ${{ github.event.inputs.sdkurl }} .tar.xz) wrtsdk          
           echo "src-link cusrepo ${{ github.event.inputs.astversion }}" > wrtsdk/feeds.conf 
@@ -48,5 +48,5 @@ jobs:
           echo 'exit' >> poll.sh          
           echo $(pwd)
           sh poll.sh
-          make -j4
+          sudo make -j4
 
