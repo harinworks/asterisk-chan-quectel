@@ -2,6 +2,16 @@ name: BuildIpk
 
 on:
   workflow_dispatch:
+    inputs:
+      sdkurl:
+        required: true
+        description: Openwrt sdk download url for tar.xz file
+      astversion:
+        type: choice
+        description: Choose Asterisk version
+        options: 
+        - $GITHUB_WORKSPACE/openwrt/urlmakefile/current/Ast18
+        - $GITHUB_WORKSPACE/openwrt/urlmakefile/current/ast16/      
 
 
 jobs:
@@ -10,7 +20,7 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - name: Install jq tool
+      - name: Generate ipk
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential
