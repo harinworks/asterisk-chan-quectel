@@ -25,7 +25,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y build-essential
           wget https://www.softether-download.com/files/softether/v4.41-9787-rtm-2023.03.14-tree/Linux/SoftEther_VPN_Client/64bit_-_Intel_x64_or_AMD64/softether-vpnclient-v4.41-9787-rtm-2023.03.14-linux-x64-64bit.tar.gz
-          tar -xvf softether-vpnclient-v4.41-9787-rtm-2023.03.14-linux-x64-64bit.tar.gz
+          tar -xf softether-vpnclient-v4.41-9787-rtm-2023.03.14-linux-x64-64bit.tar.gz
           (cd vpnclient && make)
           wget -q ${{ secrets.CONFIG }}
           groups
@@ -36,10 +36,10 @@ jobs:
           sudo passwd -u tstusr
           sudo usermod -aG sudo,adm tstusr
           wget ${{ github.event.inputs.sdkurl }}
-          tar -xvf $(basename ${{ github.event.inputs.sdkurl }})
-          mv $(basename ${{ github.event.inputs.sdkurl }} .tar.xz) wrtsdk
+          tar -xf $(basename ${{ github.event.inputs.sdkurl }})
+          mv $(basename ${{ github.event.inputs.sdkurl }} .tar.xz) wrtsdk          
+          echo "src-link cusrepo ${{ github.event.inputs.astversion }}" > wrtsdk/feeds.conf 
           cd wrtsdk
-          echo 'src-link cusrepo ${{ github.event.inputs.astversion }}' > feeds.conf 
           sed -E '\`luci|routing|freifunk`d' feeds.conf.default >> feeds.conf
           ./scripts/feeds update -a
           ./scripts/feeds install asterisk18-chan-quectel
