@@ -5,10 +5,10 @@ on:
     inputs:
       sdkurl:
         required: true
-        description: Openwrt download url for sdk file in tar.xz format
+        description: Download url for Openwrt sdk file in tar.xz format
       astversion:
         type: choice
-        description: Choose Asterisk version
+        description: Choose Asterisk version - make sure it corresponds with Openwrt version chosen
         options: 
         - $GITHUB_WORKSPACE/openwrt/urlmakefile/current/Ast18
         - $GITHUB_WORKSPACE/openwrt/urlmakefile/current/ast16/      
