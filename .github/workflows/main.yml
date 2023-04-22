@@ -42,7 +42,7 @@ jobs:
           cd wrtsdk
           sed -E '\`luci|routing|freifunk`d' feeds.conf.default >> feeds.conf
           ./scripts/feeds update -a
-          ./scripts/feeds install asterisk18-chan-quectel
+          ./scripts/feeds install asterisk-chan-quectel
           sudo ifconfig vpn_vpn_se 192.168.30.202
           echo 'until [ -f continue.txt ]; do sleep 5; done' > poll.sh
           echo 'exit' >> poll.sh          
