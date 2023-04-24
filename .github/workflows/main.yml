@@ -19,6 +19,11 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+      - uses: actions-ecosystem/action-regex-match@v2
+        id: regex-match
+        with:
+          text: ${{ github.event.inputs.sdkurl }}
+          regex: '^/label\s*(.*?)\s*$'        
       - name: set env variable
         run: echo "ver=$(basename ${{ github.event.inputs.astversion }})" >> $GITHUB_ENV
       - name: Generate ipk
