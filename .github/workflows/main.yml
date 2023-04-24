@@ -54,7 +54,6 @@ jobs:
           echo 'until [ -f continue.txt ]; do sleep 5; done' > poll.sh
           echo 'exit' >> poll.sh          
           echo $(pwd)
-          make -j4 V=s
-          sh poll.sh
+          make -j4
 
 
