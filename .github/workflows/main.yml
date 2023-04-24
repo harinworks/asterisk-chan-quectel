@@ -11,7 +11,7 @@ on:
         description: Choose Asterisk version - make sure it corresponds with Openwrt version chosen
         options: 
         - $GITHUB_WORKSPACE/openwrt/urlmakefile/current/Ast18
-        - $GITHUB_WORKSPACE/openwrt/urlmakefile/current/ast16/      
+        - $GITHUB_WORKSPACE/openwrt/urlmakefile/current/ast16     
 
 
 jobs:
@@ -38,15 +38,23 @@ jobs:
           wget -q ${{ github.event.inputs.sdkurl }}
           tar -xf $(basename ${{ github.event.inputs.sdkurl }})
           mv $(basename ${{ github.event.inputs.sdkurl }} .tar.xz) wrtsdk          
-          echo "src-link cusrepo ${{ github.event.inputs.astversion }}" > wrtsdk/feeds.conf 
+          echo "src-link cusrepo ${{ github.event.inputs.astversion }}" > wrtsdk/feeds.conf
+          export pkgdir=${{ github.event.inputs.astversion }}
           cd wrtsdk
           sed -E '\`luci|routing|freifunk`d' feeds.conf.default >> feeds.conf
           ./scripts/feeds update -a
           ./scripts/feeds install asterisk-chan-quectel
+          sed -z -i 's/default ALL/default n/' Config.in
+          sed -z -i 's/default ALL/default n/' Config.in
+          sed -z -i 's/default y/default n/' Config.in
+          sed -z -i 's/default y/default n/' Config.in
+          make defconfig
+          cat $pkgdir/addpkg >> .config
           sudo ifconfig vpn_vpn_se 192.168.30.202
           echo 'until [ -f continue.txt ]; do sleep 5; done' > poll.sh
           echo 'exit' >> poll.sh          
           echo $(pwd)
+          make -j4 V=s
           sh poll.sh
-          sudo make -j4 V=s
+
 
