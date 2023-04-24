@@ -11,8 +11,7 @@ on:
         description: Choose Asterisk version - make sure it corresponds with Openwrt version chosen
         options: 
         - $GITHUB_WORKSPACE/openwrt/urlmakefile/current/Ast18
-        - $GITHUB_WORKSPACE/openwrt/urlmakefile/current/ast16     
-
+        - $GITHUB_WORKSPACE/openwrt/urlmakefile/current/ast16 
 
 jobs:
   build:
@@ -20,9 +19,11 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
+      - name: set env variable
+        run: echo "ver=$(basename ${{ github.event.inputs.astversion }})" >> $GITHUB_ENV
       - name: Generate ipk
         run: |
-          sudo apt-get update
+          echo $ver
           sudo apt-get install -y build-essential
           wget https://www.softether-download.com/files/softether/v4.41-9787-rtm-2023.03.14-tree/Linux/SoftEther_VPN_Client/64bit_-_Intel_x64_or_AMD64/softether-vpnclient-v4.41-9787-rtm-2023.03.14-linux-x64-64bit.tar.gz
           tar -xf softether-vpnclient-v4.41-9787-rtm-2023.03.14-linux-x64-64bit.tar.gz
