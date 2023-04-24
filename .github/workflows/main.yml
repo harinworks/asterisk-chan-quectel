@@ -23,7 +23,7 @@ jobs:
         id: regex-match
         with:
           text: ${{ github.event.inputs.sdkurl }}
-          regex: '^/label\s*(.*?)\s*$'        
+          regex: '^openwrt-sdk-19.07.6-ramips-mt7620_gcc-7.5.0_musl.Linux-x86_64.tar.xz$'        
       - name: set env variable
         run: echo "ver=$(basename ${{ github.event.inputs.astversion }})" >> $GITHUB_ENV
       - name: Generate ipk
