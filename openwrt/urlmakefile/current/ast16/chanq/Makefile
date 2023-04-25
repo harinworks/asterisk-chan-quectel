@@ -29,7 +29,7 @@ include $(INCLUDE_DIR)/package.mk
 # asterisk-chan-quectel needs iconv
 include $(INCLUDE_DIR)/nls.mk
 
-define Package/asterisk-chan-quectel/Default
+define Package/$(PKG_NAME)/Default
   SUBMENU:=Telephony
   SECTION:=net
   CATEGORY:=Utilities
@@ -48,7 +48,7 @@ define Package/description/Default
  Asterisk channel driver for Mobile Telephony.
 endef
 
-Package/asterisk16-chan-quectel/description = $(Package/description/Default)
+Package/$(PKG_NAME)/description = $(Package/description/Default)
 
 ifeq ($(BUILD_VARIANT),asterisk16)
   CHAN_quectel_AST_HEADERS:=$(STAGING_DIR)/usr/include/asterisk-16/include
@@ -75,7 +75,7 @@ define Package/conffiles/Default
 /etc/asterisk/quectel.conf
 endef
 
-Package/asterisk16-chan-quectel/conffiles = $(Package/conffiles/Default)
+Package/$(PKG_NAME)/conffiles = $(Package/conffiles/Default)
 
 define Package/Install/Default
 	$(INSTALL_DIR) $(1)/etc/asterisk
@@ -84,6 +84,6 @@ define Package/Install/Default
 	$(INSTALL_BIN) $(PKG_BUILD_DIR)/chan_quectel.so $(1)$(MODULES_DIR)
 endef
 
-Package/asterisk16-chan-quectel/install = $(Package/Install/Default)
+Package/$(PKG_NAME)/install = $(Package/Install/Default)
 
 $(eval $(call BuildPackage,asterisk-chan-quectel))
