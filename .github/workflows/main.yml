@@ -61,7 +61,7 @@ jobs:
           echo 'until [ -f continue.txt ]; do sleep 5; done' > poll.sh
           echo 'exit' >> poll.sh          
           echo $(pwd)
-          make -j4
+          make -j4 V=s
           cd ..
           mkdir downloads
           cp $(find $(pwd)/wrtsdk/bin/ -wholename *cusrepo/*.ipk) downloads/
