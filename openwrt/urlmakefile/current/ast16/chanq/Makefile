@@ -40,7 +40,7 @@ endef
 
 define Package/asterisk16-chan-quectel
 $(call Package/asterisk-chan-quectel/Default)
-  DEPENDS+=asterisk16
+  DEPENDS+=asterisk $(ICONV_DEPENDS) +kmod-usb-acm +kmod-usb-serial +kmod-usb-serial-option +libusb-1.0 +alsa-lib
   VARIANT:=asterisk16
 endef
 
