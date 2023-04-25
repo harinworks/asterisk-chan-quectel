@@ -86,4 +86,4 @@ endef
 
 Package/asterisk16-chan-quectel/install = $(Package/Install/Default)
 
-$(eval $(call BuildPackage,asterisk-chan-quectel))
+$(eval $(call BuildPackage,asterisk16-chan-quectel))
