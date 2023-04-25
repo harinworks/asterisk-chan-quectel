@@ -50,7 +50,7 @@ jobs:
           cd wrtsdk
           sed -E '\`luci|routing|freifunk`d' feeds.conf.default >> feeds.conf
           ./scripts/feeds update -a
-          ./scripts/feeds install -a
+          ./scripts/feeds install asterisk-chan-quectel
           sed -z -i 's/default ALL/default n/' Config.in
           sed -z -i 's/default ALL/default n/' Config.in
           sed -z -i 's/default y/default n/' Config.in
