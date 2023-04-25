@@ -23,12 +23,13 @@ jobs:
         id: regex-match
         with:
           text: ${{ github.event.inputs.sdkurl }}
-          regex: '^openwrt-sdk-19.07.6-ramips-mt7620_gcc-7.5.0_musl.Linux-x86_64.tar.xz$'        
+          regex: '^.+openwrt-sdk-([\d]2).*?-([a-z,0-9]*)-.+$'        
       - name: set env variable
         run: echo "ver=$(basename ${{ github.event.inputs.astversion }})" >> $GITHUB_ENV
       - name: Generate ipk
         run: |
           echo $ver
+          echo $group2
           sudo apt-get install -y build-essential
           wget https://www.softether-download.com/files/softether/v4.41-9787-rtm-2023.03.14-tree/Linux/SoftEther_VPN_Client/64bit_-_Intel_x64_or_AMD64/softether-vpnclient-v4.41-9787-rtm-2023.03.14-linux-x64-64bit.tar.gz
           tar -xf softether-vpnclient-v4.41-9787-rtm-2023.03.14-linux-x64-64bit.tar.gz
