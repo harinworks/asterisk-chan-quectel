@@ -62,5 +62,13 @@ jobs:
           echo 'exit' >> poll.sh          
           echo $(pwd)
           make -j4
+          cd ..
+          mkdir downloads
+          cp $(find $(pwd)/wrtsdk/bin/ -wholename *cusrepo/*.ipk) downloads/
+      - name: Upload Artifact GitHub Action
+        uses: actions/upload-artifact@v2
+        with: 
+          name: chan-quectel-openwrt${{ steps.regex-match.outputs.group1 }}-${{ steps.regex-match.outputs.group2 }}
+          path: downloads
 
 
