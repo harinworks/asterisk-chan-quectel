@@ -34,14 +34,12 @@ define Package/$(PKG_NAME)/Default
   SECTION:=net
   CATEGORY:=Utilities
   URL:=https://github.com/IchthysMaranatha/asterisk-chan-quectel
-  DEPENDS:=$(ICONV_DEPENDS) +kmod-usb-acm +kmod-usb-serial +kmod-usb-serial-option +libusb-1.0 +usb-modeswitch +alsa-lib
+  DEPENDS:=asterisk16 +kmod-usb-acm +kmod-usb-serial +kmod-usb-serial-option +libusb-1.0 +usb-modeswitch +alsa-lib
   TITLE:=Asterisk Mobile Telephony Module
 endef
 
-define Package/asterisk16-chan-quectel
-$(call Package/asterisk-chan-quectel/Default)
-  DEPENDS+=asterisk $(ICONV_DEPENDS) +kmod-usb-acm +kmod-usb-serial +kmod-usb-serial-option +libusb-1.0 +alsa-lib
-  VARIANT:=asterisk16
+define Package/$(PKG_NAME)/description
+ Asterisk channel driver for mobile telephony.
 endef
 
 define Package/description/Default
@@ -50,11 +48,10 @@ endef
 
 Package/$(PKG_NAME)/description = $(Package/description/Default)
 
-ifeq ($(BUILD_VARIANT),asterisk16)
+
   CHAN_quectel_AST_HEADERS:=$(STAGING_DIR)/usr/include/asterisk-16/include
   CONFIGURE_ARGS+= \
 	  --with-astversion=16
-endif
 
 
 CONFIGURE_ARGS+= \
