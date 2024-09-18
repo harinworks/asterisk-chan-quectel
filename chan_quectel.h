@@ -135,6 +135,7 @@ typedef struct pvt
 	AST_LIST_HEAD_NOLOCK (, at_queue_task) at_queue;	/*!< queue for commands to modem */
 
 	AST_LIST_HEAD_NOLOCK (, cpvt)		chans;		/*!< list of channels */
+	AST_LIST_HEAD_NOLOCK (, dtmf)		dtmflk;
 	struct cpvt		sys_chan;			/*!< system channel */
 	struct cpvt		*last_dialed_cpvt;		/*!< channel what last call successfully set ATDnum; leave until ^ORIG received; need because real call idx of dialing call unknown until ^ORIG */
 

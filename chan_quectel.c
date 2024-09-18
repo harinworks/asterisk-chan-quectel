@@ -1648,6 +1648,7 @@ static struct pvt * pvt_create(const pvt_config_t * settings)
 
 		AST_LIST_HEAD_INIT_NOLOCK (&pvt->at_queue);
 		AST_LIST_HEAD_INIT_NOLOCK (&pvt->chans);
+		AST_LIST_HEAD_INIT_NOLOCK (&pvt->dtmflk);
 		pvt->sys_chan.pvt = pvt;
 		pvt->sys_chan.state = CALL_STATE_RELEASED;
 

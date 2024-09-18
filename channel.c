@@ -676,6 +676,7 @@ static struct ast_frame* channel_read (struct ast_channel* channel)
 	struct pvt*		pvt;
 	struct ast_frame*	f = &ast_null_frame;
 	ssize_t			res;
+        struct dtmf *           dtmf;
 
 	if(!cpvt || cpvt->channel != channel || !cpvt->pvt)
 	{
@@ -735,6 +736,25 @@ static struct ast_frame* channel_read (struct ast_channel* channel)
 /*		ast_debug (7, "[%s] call idx %d read %u\n", PVT_ID(pvt), cpvt->call_idx, (unsigned)res);
 		ast_debug (6, "[%s] read | call idx %d fd %d read %d bytes\n", PVT_ID(pvt), cpvt->call_idx, pvt->audio_fd, res);
 */
+	        AST_LIST_TRAVERSE(&pvt->dtmflk, dtmf, entry) {
+
+		        if(dtmf->sent == 1)
+		        {
+		ast_log (LOG_ERROR, "entered dtmf traverse condition\n");
+		ast_log (LOG_ERROR, "dtmf structure digit is '%d'\n", dtmf->dtmfdigit);
+		        cpvt->a_read_frame.samples	= FRAME_SIZE;
+		        cpvt->a_read_frame.datalen	= FRAME_SIZE*2;                        
+		        f = &cpvt->a_read_frame;
+                        f->frametype = AST_FRAME_DTMF_END;
+                        f->subclass_integer = dtmf->dtmfdigit;
+                        ast_set_flag(ast_channel_flags(channel), AST_FLAG_IN_DTMF);
+			dtmf->sent = 0;
+                        goto e_return;
+		        }
+	         }
+
+
+
 
 		if(CPVT_IS_MASTER(cpvt))
 		{

@@ -52,6 +52,7 @@ typedef struct cpvt {
 
 	struct ast_channel*	channel;			/*!< Channel pointer */
 	struct pvt		*pvt;				/*!< pointer to device structure */
+	struct dtmf		*dtmf;
 
 	short			call_idx;			/*!< device call ID */
 #define MIN_CALL_IDX		0
@@ -79,6 +80,12 @@ typedef struct cpvt {
 //	struct ringbuffer	a_write_rb;			/*!< audio ring buffer */
 } cpvt_t;
 
+typedef struct dtmf {
+	AST_LIST_ENTRY (dtmf)	entry;
+        int                     dtmfdigit;
+        int                     sent;
+} dtmf_t;				
+
 #define CPVT_SET_FLAGS(cpvt, flag)	do { (cpvt)->flags |= (flag); } while(0)
 #define CPVT_RESET_FLAGS(cpvt, flag)	do { (cpvt)->flags &= ~((int)flag); } while(0)
 #define CPVT_TEST_FLAG(cpvt, flag)	((cpvt)->flags & (flag))
@@ -90,6 +97,7 @@ typedef struct cpvt {
 
 
 EXPORT_DECL struct cpvt * cpvt_alloc(struct pvt * pvt, int call_idx, unsigned dir, call_state_t statem);
+EXPORT_DECL void  dtmf_alloc(struct pvt * pvt, int dtmfdigit);
 EXPORT_DECL void cpvt_free(struct cpvt* cpvt);
 
 EXPORT_DECL struct cpvt * pvt_find_cpvt(struct pvt * pvt, int call_idx);

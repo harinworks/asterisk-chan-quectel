@@ -80,6 +80,7 @@ EXPORT_DEF void cpvt_free(struct cpvt* cpvt)
 {
 	pvt_t * pvt = cpvt->pvt;
 	struct cpvt * found;
+        struct dtmf * dtmf;
 	struct at_queue_task * task;
 
 	close(cpvt->rd_pipe[1]);
@@ -114,7 +115,19 @@ EXPORT_DEF void cpvt_free(struct cpvt* cpvt)
 		pvt_try_restate(pvt);
 		}
 
+
+	AST_LIST_TRAVERSE_SAFE_BEGIN(&pvt->dtmflk, dtmf, entry) {
+		if(dtmf->dtmfdigit)
+		{
+		        ast_log (LOG_ERROR, "Removing dtmf digit '%d'\n", dtmf->dtmfdigit);
+			AST_LIST_REMOVE_CURRENT(entry);
+                        ast_free(dtmf);
+
+		}
+	}
+	AST_LIST_TRAVERSE_SAFE_END;
 	ast_free(cpvt);
+
 }
 
 #/* */
@@ -182,3 +195,17 @@ EXPORT_DEF const char * pvt_call_dir(const struct pvt * pvt)
 
 	return dirs[index];
 }
+
+EXPORT_DEF void dtmf_alloc(struct pvt * pvt, int dtmfdigit)
+{
+                struct dtmf * dtmf = NULL;
+		dtmf = ast_calloc (1, sizeof (*dtmf));
+		if(dtmf)
+		{
+			dtmf->dtmfdigit = dtmfdigit;
+			dtmf->sent = 1;
+		ast_log (LOG_ERROR, "dtmf pushed into struct '%d'\n", dtmf->dtmfdigit);
+			AST_LIST_INSERT_TAIL(&pvt->dtmflk, dtmf, entry);
+		}
+}
+

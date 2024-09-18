@@ -118,6 +118,18 @@ static int at_response_rcend (struct pvt * pvt, const char* str)
 	return 0;
 }
 
+static int at_response_dtmfdet (struct pvt * pvt, const char* str)
+{
+        int dtmfdigit;
+        struct dtmf * dtmf;
+        sscanf (str, "+QTONEDET: %d", &dtmfdigit);
+		ast_log (LOG_ERROR, "local dtmf accessed '%d'\n", dtmfdigit);
+        dtmf_alloc(pvt, dtmfdigit);
+}
+        
+
+
+
 static int at_response_cend (struct pvt * pvt, const char* str)
 {
 	int call_index = 0;
@@ -2109,6 +2121,8 @@ int at_response (struct pvt* pvt, const struct iovec iov[2], int iovcnt, at_res_
 
 			case RES_RCEND:
 				return at_response_rcend (pvt, str);
+			case RES_QTONEDET:
+				return at_response_dtmfdet (pvt, str);
 
 			case RES_CONN:
 				return at_response_conn (pvt, str);
