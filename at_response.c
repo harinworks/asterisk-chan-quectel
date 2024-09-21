@@ -125,6 +125,7 @@ static int at_response_dtmfdet (struct pvt * pvt, const char* str)
         sscanf (str, "+QTONEDET: %d", &dtmfdigit);
 		ast_log (LOG_ERROR, "local dtmf accessed '%d'\n", dtmfdigit);
         dtmf_alloc(pvt, dtmfdigit);
+	return 0;
 }
         
 
