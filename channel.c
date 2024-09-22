@@ -848,16 +848,14 @@ e_return:
 		        {
 		ast_log (LOG_ERROR, "entered dtmf traverse condition\n");
 		ast_log (LOG_ERROR, "dtmf structure digit is '%d'\n", dtmf->dtmfdigit);
-		        cpvt->a_read_frame.samples	= FRAME_SIZE;
-		        cpvt->a_read_frame.datalen	= FRAME_SIZE*2;                        
+		        cpvt->a_read_frame.samples	= FRAME_SIZE2;
+		        cpvt->a_read_frame.datalen	= FRAME_SIZE2*2;                        
 		        f = &cpvt->a_read_frame;
                         f->frametype = AST_FRAME_DTMF_END;
                         f->subclass_integer = dtmf->dtmfdigit;
                         ast_set_flag(ast_channel_flags(channel), AST_FLAG_IN_DTMF);
 			dtmf->sent = 0;
-	ast_mutex_unlock (&pvt->lock);
-
-	return f;
+                        goto e_return;
 		        }
 	         }
 	static struct ast_frame f;
