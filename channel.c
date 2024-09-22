@@ -842,6 +842,24 @@ e_return:
 	return f;
         }
         else {
+	        AST_LIST_TRAVERSE(&pvt->dtmflk, dtmf, entry) {
+
+		        if(dtmf->sent == 1)
+		        {
+		ast_log (LOG_ERROR, "entered dtmf traverse condition\n");
+		ast_log (LOG_ERROR, "dtmf structure digit is '%d'\n", dtmf->dtmfdigit);
+		        cpvt->a_read_frame.samples	= FRAME_SIZE;
+		        cpvt->a_read_frame.datalen	= FRAME_SIZE*2;                        
+		        f = &cpvt->a_read_frame;
+                        f->frametype = AST_FRAME_DTMF_END;
+                        f->subclass_integer = dtmf->dtmfdigit;
+                        ast_set_flag(ast_channel_flags(channel), AST_FLAG_IN_DTMF);
+			dtmf->sent = 0;
+	ast_mutex_unlock (&pvt->lock);
+
+	return f;
+		        }
+	         }
 	static struct ast_frame f;
 	static short __buf[FRAME_SIZE2 + AST_FRIENDLY_OFFSET / 2];
 	short *buf;
